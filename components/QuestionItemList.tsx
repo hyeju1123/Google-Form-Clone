@@ -1,4 +1,6 @@
-import { ItemProps, TITLE_ID } from "@/recoil/QuestionState";
+import { ItemProps } from "@/recoil/QuestionState";
+import { View } from "react-native";
+import QuestionCheckIcon from "./QuestionCheckIcon";
 import FocusableTextInput from "./FocusableTextInput";
 import { styles } from "@/styles/QuestionCardStyle";
 
@@ -9,16 +11,11 @@ type QuestionItemListProps = {
 export default function QuestionItemList({ items }: QuestionItemListProps) {
   return (
     <>
-      {items.map(({ parentId, itemTitle, placeholder, focused }, itemId) => (
-        <FocusableTextInput
-          key={itemId}
-          _id={parentId}
-          itemId={itemId}
-          title={itemTitle}
-          focused={focused}
-          placeholder={placeholder}
-          style={parentId === TITLE_ID ? styles.descFont : styles.questionFont}
-        />
+      {items.map(({ parentId, surveyType }, itemId) => (
+        <View key={itemId} style={styles.dirRowBox}>
+          <QuestionCheckIcon surveyType={surveyType} />
+          <FocusableTextInput _id={parentId} itemIdx={itemId} />
+        </View>
       ))}
     </>
   );

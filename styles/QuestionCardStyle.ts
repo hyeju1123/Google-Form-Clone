@@ -15,4 +15,18 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     padding: 15,
   },
+  underline: {
+    flexGrow: 1,
+    borderBottomWidth: 2,
+    borderColor: theme.shadow,
+  },
+  focusedUnderline: {
+    borderColor: theme.primary,
+  },
+  dirRowBox: {
+    width: "auto",
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
+  },
 });
