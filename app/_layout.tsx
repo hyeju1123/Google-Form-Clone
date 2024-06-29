@@ -1,5 +1,10 @@
 import App from "./App";
+import { RecoilRoot } from "recoil";
 
 export default function RootLayout() {
-  return <App />;
+  return (
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
+  );
 }
