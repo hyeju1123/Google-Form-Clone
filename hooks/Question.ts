@@ -1,6 +1,6 @@
 import { TITLE_ID, questionState } from "@/recoil/QuestionState";
 import { styles } from "@/styles/QuestionCardStyle";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useRecoilState } from "recoil";
 
 export type QuestionHookProps = {

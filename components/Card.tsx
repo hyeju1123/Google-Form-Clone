@@ -1,32 +1,23 @@
-import { theme } from "@/styles/color";
-import { PropsWithChildren, ReactNode } from "react";
-import { View, StyleSheet } from "react-native";
+import { PropsWithChildren } from "react";
+import { View } from "react-native";
+import CardBottom from "./CardBottom";
+import { TITLE_ID } from "@/recoil/QuestionState";
+import { styles } from "@/styles/CardStyle";
 
 type Props = PropsWithChildren & {
-  title?: boolean;
+  _id: number;
 };
 
-export default function Card({ children, title }: Props) {
+const Card = ({ children, _id }: Props) => {
   return (
     <>
-      {title && <View style={styles.titleRoof} />}
-      <View style={styles.container}>{children}</View>
+      {_id === TITLE_ID && <View style={styles.titleRoof} />}
+      <View style={styles.container}>
+        {children}
+        <CardBottom _id={_id} />
+      </View>
     </>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  titleRoof: {
-    width: "auto",
-    height: 10,
-    borderTopLeftRadius: 7,
-    borderTopRightRadius: 7,
-    backgroundColor: theme.primary,
-  },
-  container: {
-    width: "auto",
-    padding: 20,
-    marginBottom: 12,
-    backgroundColor: theme.card,
-  },
-});
+export default Card;

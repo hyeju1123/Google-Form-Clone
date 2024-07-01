@@ -1,6 +1,7 @@
 import { atom, atomFamily, selectorFamily } from "recoil";
 
 export const TITLE_ID = 1;
+const FIRST_QUESTION_IDX = 2;
 export type SurveyType = "desc" | "short" | "long" | "radio" | "checkbox";
 
 export type ItemProps = {
@@ -20,15 +21,15 @@ export type QuestionProps = {
   focused: boolean;
 };
 
-const EmptyQuestion: QuestionProps = {
+export const EmptyQuestion: QuestionProps = {
   _id: 0,
-  title: "",
-  placeholder: "",
+  title: "질문",
+  placeholder: "질문",
   items: [
     {
       parentId: 0,
       surveyType: "radio",
-      itemTitle: "",
+      itemTitle: "옵션 1",
       placeholder: "",
       focused: false,
       checked: false,
@@ -55,12 +56,12 @@ export const DefaultQuestion: QuestionProps[] = [
     focused: false,
   },
   {
-    _id: 2,
+    _id: FIRST_QUESTION_IDX,
     title: "제목없는 질문",
     placeholder: "설문지 제목",
     items: [
       {
-        parentId: 2,
+        parentId: FIRST_QUESTION_IDX,
         surveyType: "radio",
         itemTitle: "옵션 1",
         placeholder: "",
@@ -71,6 +72,11 @@ export const DefaultQuestion: QuestionProps[] = [
     focused: false,
   },
 ];
+
+export const indexState = atom<number>({
+  key: "index",
+  default: FIRST_QUESTION_IDX + 1,
+});
 
 export const questionsState = atom<QuestionProps[]>({
   key: "questions",
