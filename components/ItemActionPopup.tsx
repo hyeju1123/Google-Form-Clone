@@ -4,6 +4,7 @@ import { View } from "react-native";
 import { useRecoilValue } from "recoil";
 
 import usePopup from "@/hooks/Popup";
+import useCardFocus from "@/hooks/CardFocus";
 import useQuestionList from "@/hooks/QuestionList";
 
 import ActionButton from "./ActionButton";

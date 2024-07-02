@@ -2,6 +2,7 @@ import { TITLE_ID, questionState } from "@/recoil/QuestionState";
 import { styles } from "@/styles/QuestionCardStyle";
 import { useCallback } from "react";
 import { useRecoilState } from "recoil";
+import useCardFocus from "@/hooks/CardFocus";
 
 export type QuestionHookProps = {
   _id: number;
@@ -14,6 +15,7 @@ const setDefaultStyle = ({ _id, itemIdx }: QuestionHookProps) => {
 };
 
 export default function Question({ _id, itemIdx }: QuestionHookProps) {
+  const { handleCardFocus } = useCardFocus();
   const [questionVal, setQuestionVal] = useRecoilState(questionState(_id));
   const { title, focused, placeholder, items } = questionVal;
   const style = setDefaultStyle({ _id, itemIdx });
@@ -29,7 +31,8 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
 
   /** fn for handling focus */
   const handleFocus = useCallback(
-    (focused: boolean) => {
+    (_id: number, focused: boolean) => {
+      focused && handleCardFocus(_id);
       setQuestionVal(prev => {
         return itemIdx === null
           ? { ...prev, focused }
@@ -41,7 +44,7 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
             };
       });
     },
-    [setQuestionVal]
+    [setQuestionVal, handleCardFocus]
   );
 
   /** fn for handling change */

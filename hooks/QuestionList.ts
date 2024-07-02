@@ -7,8 +7,10 @@ import {
 
 import { useCallback } from "react";
 import { useRecoilState } from "recoil";
+import useCardFocus from "@/hooks/CardFocus";
 
 export default function QuestionList() {
+  const { handleCardFocus } = useCardFocus();
   const [lastIdx, setLastIdx] = useRecoilState(indexState);
   const [questionList, setQuestionList] = useRecoilState(questionsState);
 
@@ -27,6 +29,7 @@ export default function QuestionList() {
       };
       setLastIdx(prev => prev + 1);
       setQuestionList(prev => [...prev, newQuestion]);
+      handleCardFocus(lastIdx);
     },
     [lastIdx, setLastIdx, setQuestionList]
   );
@@ -34,6 +37,7 @@ export default function QuestionList() {
   const removeQuestion = useCallback(
     (_id: number) => {
       setQuestionList(prev => prev.filter(q => q._id !== _id));
+      handleCardFocus(null);
     },
     [setQuestionList]
   );

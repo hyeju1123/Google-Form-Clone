@@ -11,6 +11,9 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     paddingTop: 10,
   },
+  questionBg: {
+    backgroundColor: theme.shadow,
+  },
   questionFont: {
     fontSize: 16,
     padding: 15,
@@ -21,6 +24,8 @@ export const styles = StyleSheet.create({
     borderColor: theme.shadow,
   },
   focusedUnderline: {
+    flexGrow: 1,
+    borderBottomWidth: 2,
     borderColor: theme.primary,
   },
   dirRowBox: {
