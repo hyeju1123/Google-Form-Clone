@@ -1,11 +1,15 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import IconWrapper from "../IconWrapper";
 import { theme } from "@/styles/color";
 
 export default function SectionIcon() {
   return (
     <IconWrapper>
-      <Ionicons name="reorder-two-sharp" size={25} color={theme.text} />
+      <MaterialCommunityIcons
+        name="view-agenda-outline"
+        size={25}
+        color={theme.icon}
+      />
     </IconWrapper>
   );
 }

@@ -1,11 +1,11 @@
+import { useCallback } from "react";
 import {
   EmptyQuestion,
+  ExcludeDescSurveyType,
   QuestionProps,
   indexState,
   questionsState,
 } from "@/recoil/QuestionState";
-
-import { useCallback } from "react";
 import { useRecoilState } from "recoil";
 import useCardFocus from "@/hooks/CardFocus";
 
@@ -42,5 +42,14 @@ export default function QuestionList() {
     [setQuestionList]
   );
 
-  return { questionList, addQuestion, removeQuestion };
+  const updateSurveyType = useCallback(
+    (_id: number, surveyType: ExcludeDescSurveyType) => {
+      setQuestionList(prev =>
+        prev.map(q => (q._id === _id ? { ...q, surveyType } : q))
+      );
+    },
+    [setQuestionList]
+  );
+
+  return { questionList, addQuestion, removeQuestion, updateSurveyType };
 }

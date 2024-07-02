@@ -1,15 +1,13 @@
-import { questionState } from "@/recoil/QuestionState";
-import { styles } from "@/styles/ItemActionPopupStyle";
 import { View } from "react-native";
-import { useRecoilValue } from "recoil";
-
-import usePopup from "@/hooks/Popup";
-import useCardFocus from "@/hooks/CardFocus";
-import useQuestionList from "@/hooks/QuestionList";
-
+import CopyIcon from "./icons/CopyIcon";
 import ActionButton from "./ActionButton";
 import DeleteIcon from "./icons/DeleteIcon";
-import CopyIcon from "./icons/CopyIcon";
+import { styles } from "@/styles/ItemActionPopupStyle";
+
+import usePopup from "@/hooks/Popup";
+import useQuestionList from "@/hooks/QuestionList";
+import { useRecoilValue } from "recoil";
+import { questionState } from "@/recoil/QuestionState";
 
 type ItemActionPopupProps = {
   showPopup: boolean;
@@ -36,14 +34,16 @@ export default function ItemActionPopup({ showPopup }: ItemActionPopupProps) {
   return (
     <View style={[styles.container, { display: showPopup ? "flex" : "none" }]}>
       <ActionButton
-        onPress={handleAddQuestion}
-        icon={<CopyIcon />}
+        padding={20}
         text="항목 복제"
+        icon={<CopyIcon />}
+        onPress={handleAddQuestion}
       />
       <ActionButton
-        onPress={handleRemoveQuestion}
-        icon={<DeleteIcon />}
+        padding={20}
         text="삭제"
+        icon={<DeleteIcon />}
+        onPress={handleRemoveQuestion}
       />
     </View>
   );

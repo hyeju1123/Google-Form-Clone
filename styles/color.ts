@@ -6,6 +6,8 @@ interface Theme {
   textSecondary: string;
   card: string;
   shadow: string;
+  deepShadow: string;
+  icon: string;
 }
 
 export const theme: Theme = {
@@ -16,4 +18,6 @@ export const theme: Theme = {
   textSecondary: "#7d8286",
   card: "#ffffff",
   shadow: "#f1f3f4",
+  deepShadow: "#e0e2e6",
+  icon: "#5f6368",
 };

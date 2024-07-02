@@ -1,6 +1,6 @@
-import { popupState } from "@/recoil/ActionState";
 import { useCallback } from "react";
 import { useRecoilState } from "recoil";
+import { popupState } from "@/recoil/ActionState";
 
 export default function Popup() {
   const [showPopup, setShowPopup] = useRecoilState(popupState);

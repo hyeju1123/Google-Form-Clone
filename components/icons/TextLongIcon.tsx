@@ -2,14 +2,10 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import IconWrapper from "../IconWrapper";
 import { theme } from "@/styles/color";
 
-export default function AddIcon() {
+export default function TextLongIcon() {
   return (
     <IconWrapper>
-      <MaterialCommunityIcons
-        name="plus-circle-outline"
-        size={25}
-        color={theme.icon}
-      />
+      <MaterialCommunityIcons name="text-long" size={25} color={theme.icon} />
     </IconWrapper>
   );
 }

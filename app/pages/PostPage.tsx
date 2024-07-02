@@ -1,16 +1,18 @@
-import QuestionCard from "@/components/QuestionCard";
 import {
-  KeyboardAvoidingView,
   Platform,
-  SafeAreaView,
   ScrollView,
+  SafeAreaView,
+  KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from "react-native";
+import ActionSheet from "@/components/ActionSheet";
+import QuestionCard from "@/components/QuestionCard";
+import BottomActionTab from "@/components/BottomActionTab";
+import ItemActionPopup from "@/components/ItemActionPopup";
+import { styles } from "@/styles/PostPageStyle";
+
 import usePopup from "@/hooks/Popup";
 import useQuestionList from "@/hooks/QuestionList";
-import BottomActionTab from "@/components/BottomActionTab";
-import { styles } from "@/styles/PostPageStyle";
-import ItemActionPopup from "@/components/ItemActionPopup";
 
 export default function PostPage() {
   const { questionList } = useQuestionList();
@@ -35,6 +37,7 @@ export default function PostPage() {
             ))}
           </ScrollView>
         </KeyboardAvoidingView>
+        <ActionSheet />
         <ItemActionPopup showPopup={state} />
         <BottomActionTab />
       </SafeAreaView>

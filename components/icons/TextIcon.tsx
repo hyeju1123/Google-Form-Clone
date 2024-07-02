@@ -5,7 +5,7 @@ import { theme } from "@/styles/color";
 export default function TextIcon() {
   return (
     <IconWrapper>
-      <MaterialIcons name="text-fields" size={25} color={theme.text} />
+      <MaterialIcons name="text-fields" size={25} color={theme.icon} />
     </IconWrapper>
   );
 }

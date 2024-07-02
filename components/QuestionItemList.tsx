@@ -1,17 +1,16 @@
-import { ItemProps } from "@/recoil/QuestionState";
 import { View } from "react-native";
 import QuestionCheckIcon from "./QuestionCheckIcon";
 import FocusableTextInput from "./FocusableTextInput";
 import { styles } from "@/styles/QuestionCardStyle";
 
-type QuestionItemListProps = {
-  items: ItemProps[];
-};
+import { useRecoilValue } from "recoil";
+import { questionState } from "@/recoil/QuestionState";
 
-export default function QuestionItemList({ items }: QuestionItemListProps) {
+export default function QuestionItemList({ _id }: { _id: number }) {
+  const { surveyType, items } = useRecoilValue(questionState(_id));
   return (
     <>
-      {items.map(({ parentId, surveyType }, itemId) => (
+      {items.map(({ parentId }, itemId) => (
         <View key={itemId} style={styles.dirRowBox}>
           <QuestionCheckIcon surveyType={surveyType} />
           <FocusableTextInput _id={parentId} itemIdx={itemId} />

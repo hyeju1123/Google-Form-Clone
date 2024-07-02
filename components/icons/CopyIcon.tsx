@@ -8,7 +8,7 @@ export default function CopyIcon() {
       <MaterialCommunityIcons
         name="content-copy"
         size={20}
-        color={theme.text}
+        color={theme.icon}
       />
     </IconWrapper>
   );

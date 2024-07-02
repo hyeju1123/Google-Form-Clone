@@ -2,18 +2,20 @@ import { Text, TouchableOpacity } from "react-native";
 import { styles } from "@/styles/ItemActionPopupStyle";
 
 type ActionButtonProps = {
-  onPress: () => void;
-  icon: JSX.Element;
   text: string;
+  icon: JSX.Element;
+  padding?: number;
+  onPress: () => void;
 };
 
 export default function ActionButton({
-  onPress,
-  icon,
   text,
+  icon,
+  padding,
+  onPress,
 }: ActionButtonProps) {
   return (
-    <TouchableOpacity style={styles.item} onPress={onPress}>
+    <TouchableOpacity style={[{ padding }, styles.item]} onPress={onPress}>
       {icon}
       <Text style={styles.font}>{text}</Text>
     </TouchableOpacity>
