@@ -10,7 +10,10 @@ import { SurveyType } from "@/recoil/QuestionState";
 import CloseIcon from "./icons/CloseIcon";
 
 export default function QuestionItemList({ _id }: { _id: number }) {
-  const { surveyType, items } = useQuestion({ _id, itemIdx: null });
+  const { surveyType, items, handleDeleteOption } = useQuestion({
+    _id,
+    itemIdx: null,
+  });
 
   return (
     <>
@@ -18,12 +21,15 @@ export default function QuestionItemList({ _id }: { _id: number }) {
         <TextInputSkeleton surveyType={surveyType} />
       ) : (
         <>
-          {items.map(({ parentId }, itemId) => (
+          {items.map(({ parentId, itemId }) => (
             <View key={itemId} style={styles.dirRowBox}>
               <QuestionCheckIcon surveyType={surveyType as SurveyType} />
               <FocusableTextInput _id={parentId} itemIdx={itemId} />
               {items.length > 1 && (
-                <TouchableOpacity style={styles.closeButton}>
+                <TouchableOpacity
+                  style={styles.closeButton}
+                  onPress={() => handleDeleteOption(itemId)}
+                >
                   <CloseIcon />
                 </TouchableOpacity>
               )}

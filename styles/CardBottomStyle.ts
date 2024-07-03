@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: theme.shadow,
     marginTop: 10,
-    padding: 10,
+    paddingTop: 15,
+    paddingHorizontal: 20,
   },
 });

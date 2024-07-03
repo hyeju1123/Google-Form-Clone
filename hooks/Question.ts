@@ -22,17 +22,19 @@ const setDefaultStyle = ({ _id, itemIdx }: QuestionHookProps) => {
 export default function Question({ _id, itemIdx }: QuestionHookProps) {
   const { handleCardFocus } = useCardFocus();
   const [questionVal, setQuestionVal] = useRecoilState(questionState(_id));
+  const style = setDefaultStyle({ _id, itemIdx });
 
   const { items } = questionVal;
-  const style = setDefaultStyle({ _id, itemIdx });
+  const item = items.find(i => i.itemId === itemIdx);
+
   const returnValue =
     itemIdx === null
       ? { ...questionVal, style }
       : {
           ...questionVal,
-          title: items[itemIdx].itemTitle,
-          focused: items[itemIdx].focused,
-          placeholder: items[itemIdx].placeholder,
+          title: item?.itemTitle,
+          focused: item?.focused,
+          placeholder: item?.placeholder,
           items: [],
           style,
         };
@@ -63,8 +65,8 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
           ? { ...prev, title }
           : {
               ...prev,
-              items: prev.items.map((item, idx) =>
-                idx === itemIdx ? { ...item, itemTitle: title } : item
+              items: prev.items.map(item =>
+                item.itemId === itemIdx ? { ...item, itemTitle: title } : item
               ),
             };
       });
@@ -83,15 +85,19 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
     [setQuestionVal]
   );
 
+  /** fn for handling adding option */
   const handleAddOption = useCallback(() => {
     setQuestionVal(prev => {
+      const { lastItemId } = prev;
       const itemsLen = prev.items.length;
       return {
         ...prev,
+        lastItemId: lastItemId + 1,
         items: [
           ...prev.items,
           {
             ...prev.items[itemsLen - 1],
+            itemId: lastItemId + 1,
             itemTitle: `옵션 ${itemsLen + 1}`,
           },
         ],
@@ -99,10 +105,12 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
     });
   }, []);
 
+  /** fn for handling deleting option */
   const handleDeleteOption = useCallback((itemId: number) => {
     setQuestionVal(prev => {
       return {
         ...prev,
+        items: prev.items.filter(i => i.itemId !== itemId),
       };
     });
   }, []);
@@ -112,6 +120,7 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
     handleChange,
     handleSurveyType,
     handleAddOption,
+    handleDeleteOption,
     ...returnValue,
   };
 }

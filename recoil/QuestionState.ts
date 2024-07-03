@@ -7,6 +7,7 @@ export type SurveyType = "desc" | "short" | "long" | "radio" | "checkbox";
 export type ExcludeDescSurveyType = Exclude<SurveyType, "desc">;
 
 export type ItemProps = {
+  itemId: number;
   parentId: number;
   itemTitle: string;
   placeholder: string;
@@ -20,6 +21,7 @@ export type QuestionProps = {
   placeholder: string;
   surveyType: SurveyType;
   items: ItemProps[];
+  lastItemId: number;
   hasOther: boolean;
   focused: boolean;
 };
@@ -31,6 +33,7 @@ export const EmptyQuestion: QuestionProps = {
   surveyType: "radio",
   items: [
     {
+      itemId: 0,
       parentId: 0,
       itemTitle: "옵션 1",
       placeholder: "",
@@ -38,6 +41,7 @@ export const EmptyQuestion: QuestionProps = {
       checked: false,
     },
   ],
+  lastItemId: 0,
   hasOther: false,
   focused: false,
 };
@@ -50,6 +54,7 @@ export const DefaultQuestion: QuestionProps[] = [
     surveyType: "desc",
     items: [
       {
+        itemId: 0,
         parentId: TITLE_ID,
         itemTitle: "",
         placeholder: "설문지 설명",
@@ -57,6 +62,7 @@ export const DefaultQuestion: QuestionProps[] = [
         checked: false,
       },
     ],
+    lastItemId: 0,
     hasOther: false,
     focused: false,
   },
@@ -67,6 +73,7 @@ export const DefaultQuestion: QuestionProps[] = [
     surveyType: "radio",
     items: [
       {
+        itemId: 0,
         parentId: FIRST_QUESTION_IDX,
         itemTitle: "옵션 1",
         placeholder: "",
@@ -74,6 +81,7 @@ export const DefaultQuestion: QuestionProps[] = [
         checked: false,
       },
     ],
+    lastItemId: 0,
     hasOther: false,
     focused: false,
   },
