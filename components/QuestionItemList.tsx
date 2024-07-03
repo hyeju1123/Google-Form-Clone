@@ -26,10 +26,7 @@ export default function QuestionItemList({ _id }: { _id: number }) {
               <QuestionCheckIcon surveyType={surveyType as SurveyType} />
               <FocusableTextInput _id={parentId} itemIdx={itemId} />
               {items.length > 1 && (
-                <TouchableOpacity
-                  style={styles.closeButton}
-                  onPress={() => handleDeleteOption(itemId)}
-                >
+                <TouchableOpacity onPress={() => handleDeleteOption(itemId)}>
                   <CloseIcon />
                 </TouchableOpacity>
               )}

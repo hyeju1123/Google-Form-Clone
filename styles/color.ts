@@ -8,6 +8,7 @@ interface Theme {
   shadow: string;
   deepShadow: string;
   icon: string;
+  required: string;
 }
 
 export const theme: Theme = {
@@ -20,4 +21,5 @@ export const theme: Theme = {
   shadow: "#f1f3f4",
   deepShadow: "#e0e2e6",
   icon: "#5f6368",
+  required: "#d93025",
 };

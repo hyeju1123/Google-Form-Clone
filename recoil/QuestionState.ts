@@ -24,6 +24,7 @@ export type QuestionProps = {
   lastItemId: number;
   hasOther: boolean;
   focused: boolean;
+  required: boolean;
 };
 
 export const EmptyQuestion: QuestionProps = {
@@ -44,6 +45,7 @@ export const EmptyQuestion: QuestionProps = {
   lastItemId: 0,
   hasOther: false,
   focused: false,
+  required: false,
 };
 
 export const DefaultQuestion: QuestionProps[] = [
@@ -65,6 +67,7 @@ export const DefaultQuestion: QuestionProps[] = [
     lastItemId: 0,
     hasOther: false,
     focused: false,
+    required: false,
   },
   {
     _id: FIRST_QUESTION_IDX,
@@ -84,6 +87,7 @@ export const DefaultQuestion: QuestionProps[] = [
     lastItemId: 0,
     hasOther: false,
     focused: false,
+    required: false,
   },
 ];
 

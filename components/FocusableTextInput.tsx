@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import { TextInput } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 import useQuestion from "@/hooks/Question";
 import { TITLE_ID } from "@/recoil/QuestionState";
@@ -11,8 +11,15 @@ type FocusableTextInputProps = {
 };
 
 const FocusableTextInput = ({ _id, itemIdx }: FocusableTextInputProps) => {
-  const { title, focused, placeholder, handleChange, handleFocus, style } =
-    useQuestion({ _id, itemIdx });
+  const {
+    title,
+    focused,
+    placeholder,
+    handleChange,
+    handleFocus,
+    style,
+    required,
+  } = useQuestion({ _id, itemIdx });
 
   const handleStyle = useCallback(() => {
     const underline = focused && styles.focusedUnderline;
@@ -22,14 +29,19 @@ const FocusableTextInput = ({ _id, itemIdx }: FocusableTextInputProps) => {
   }, [focused]);
 
   return (
-    <TextInput
-      value={title}
-      placeholder={placeholder}
-      onChangeText={handleChange}
-      onFocus={() => handleFocus(_id, true)}
-      onBlur={() => handleFocus(_id, false)}
-      style={handleStyle()}
-    />
+    <View style={styles.dirRowBox}>
+      <TextInput
+        value={title}
+        placeholder={placeholder}
+        onChangeText={handleChange}
+        onFocus={() => handleFocus(_id, true)}
+        onBlur={() => handleFocus(_id, false)}
+        style={handleStyle()}
+      />
+      {!focused && itemIdx === null && required && (
+        <Text style={[styles.asterisk]}>*</Text>
+      )}
+    </View>
   );
 };
 

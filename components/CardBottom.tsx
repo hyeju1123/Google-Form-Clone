@@ -1,10 +1,11 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { TITLE_ID } from "@/recoil/QuestionState";
+import ToggleButton from "./ToggleButton";
+import VerticalDotsIcon from "./icons/VerticalDotsIcon";
+import { styles } from "@/styles/CardBottomStyle";
 
 import usePopup from "@/hooks/Popup";
 import useCardFocus from "@/hooks/CardFocus";
-import { styles } from "@/styles/CardBottomStyle";
+import { TITLE_ID } from "@/recoil/QuestionState";
 
 export default function CardBottom({ _id }: { _id: number }) {
   const { handlePopup } = usePopup();
@@ -17,8 +18,9 @@ export default function CardBottom({ _id }: { _id: number }) {
   return (
     <View style={[styles.container, { display: setDisplay() }]}>
       <Text>필수</Text>
+      <ToggleButton _id={_id} />
       <TouchableOpacity onPress={() => handlePopup(true, _id)}>
-        <MaterialCommunityIcons name="dots-vertical" size={20} color="gray" />
+        <VerticalDotsIcon />
       </TouchableOpacity>
     </View>
   );

@@ -48,8 +48,8 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
           ? { ...prev, focused }
           : {
               ...prev,
-              items: prev.items.map((item, idx) =>
-                idx === itemIdx ? { ...item, focused } : item
+              items: prev.items.map(item =>
+                item.itemId === itemIdx ? { ...item, focused } : item
               ),
             };
       });
@@ -115,12 +115,23 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
     });
   }, []);
 
+  /** fn for handling required option */
+  const handleRequired = useCallback(() => {
+    setQuestionVal(prev => {
+      return {
+        ...prev,
+        required: !prev.required,
+      };
+    });
+  }, []);
+
   return {
     handleFocus,
     handleChange,
     handleSurveyType,
     handleAddOption,
     handleDeleteOption,
+    handleRequired,
     ...returnValue,
   };
 }
