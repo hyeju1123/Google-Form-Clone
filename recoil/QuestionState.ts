@@ -20,6 +20,7 @@ export type QuestionProps = {
   placeholder: string;
   surveyType: SurveyType;
   items: ItemProps[];
+  hasOther: boolean;
   focused: boolean;
 };
 
@@ -37,6 +38,7 @@ export const EmptyQuestion: QuestionProps = {
       checked: false,
     },
   ],
+  hasOther: false,
   focused: false,
 };
 
@@ -55,6 +57,7 @@ export const DefaultQuestion: QuestionProps[] = [
         checked: false,
       },
     ],
+    hasOther: false,
     focused: false,
   },
   {
@@ -71,6 +74,7 @@ export const DefaultQuestion: QuestionProps[] = [
         checked: false,
       },
     ],
+    hasOther: false,
     focused: false,
   },
 ];

@@ -3,7 +3,11 @@ import { styles } from "@/styles/QuestionCardStyle";
 
 import { useRecoilState } from "recoil";
 import useCardFocus from "@/hooks/CardFocus";
-import { TITLE_ID, questionState } from "@/recoil/QuestionState";
+import {
+  TITLE_ID,
+  questionState,
+  ExcludeDescSurveyType,
+} from "@/recoil/QuestionState";
 
 export type QuestionHookProps = {
   _id: number;
@@ -18,15 +22,18 @@ const setDefaultStyle = ({ _id, itemIdx }: QuestionHookProps) => {
 export default function Question({ _id, itemIdx }: QuestionHookProps) {
   const { handleCardFocus } = useCardFocus();
   const [questionVal, setQuestionVal] = useRecoilState(questionState(_id));
-  const { title, focused, placeholder, items } = questionVal;
+
+  const { items } = questionVal;
   const style = setDefaultStyle({ _id, itemIdx });
   const returnValue =
     itemIdx === null
-      ? { title, focused, placeholder, style }
+      ? { ...questionVal, style }
       : {
+          ...questionVal,
           title: items[itemIdx].itemTitle,
           focused: items[itemIdx].focused,
           placeholder: items[itemIdx].placeholder,
+          items: [],
           style,
         };
 
@@ -65,5 +72,46 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
     [setQuestionVal]
   );
 
-  return { handleFocus, handleChange, ...returnValue };
+  /** fn for handling survey type */
+  const handleSurveyType = useCallback(
+    (surveyType: ExcludeDescSurveyType) => {
+      setQuestionVal(prev => ({
+        ...prev,
+        surveyType,
+      }));
+    },
+    [setQuestionVal]
+  );
+
+  const handleAddOption = useCallback(() => {
+    setQuestionVal(prev => {
+      const itemsLen = prev.items.length;
+      return {
+        ...prev,
+        items: [
+          ...prev.items,
+          {
+            ...prev.items[itemsLen - 1],
+            itemTitle: `옵션 ${itemsLen + 1}`,
+          },
+        ],
+      };
+    });
+  }, []);
+
+  const handleDeleteOption = useCallback((itemId: number) => {
+    setQuestionVal(prev => {
+      return {
+        ...prev,
+      };
+    });
+  }, []);
+
+  return {
+    handleFocus,
+    handleChange,
+    handleSurveyType,
+    handleAddOption,
+    ...returnValue,
+  };
 }

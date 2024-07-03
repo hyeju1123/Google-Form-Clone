@@ -3,8 +3,8 @@ import { Animated, Easing } from "react-native";
 import ActionButton from "./ActionButton";
 import { styles } from "@/styles/ModalStyle";
 
+import useQuestion from "@/hooks/Question";
 import useActionSheet from "@/hooks/ActionSheet";
-import useQuestionList from "@/hooks/QuestionList";
 import { surveyTypeData } from "@/hooks/ActionSheet";
 import { ExcludeDescSurveyType } from "@/recoil/QuestionState";
 import { ActionProps } from "@/recoil/ActionState";
@@ -15,7 +15,7 @@ export default function Modal({
   showModal: ActionProps;
 }) {
   const { handleActionSheet } = useActionSheet();
-  const { updateSurveyType } = useQuestionList();
+  const { handleSurveyType } = useQuestion({ _id: lastId || 0, itemIdx: null });
   const slideAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function Modal({
             padding={20}
             icon={createElement(icon)}
             onPress={() => {
-              updateSurveyType(lastId || 0, key as ExcludeDescSurveyType);
+              handleSurveyType(key as ExcludeDescSurveyType);
               handleActionSheet(false, null);
             }}
           />

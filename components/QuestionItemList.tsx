@@ -1,21 +1,37 @@
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import QuestionCheckIcon from "./QuestionCheckIcon";
+import TextInputSkeleton from "./TextInputSkeleton";
 import FocusableTextInput from "./FocusableTextInput";
+import AddedOptionsWrapper from "./AddedOptionsWrapper";
 import { styles } from "@/styles/QuestionCardStyle";
 
-import { useRecoilValue } from "recoil";
-import { questionState } from "@/recoil/QuestionState";
+import useQuestion from "@/hooks/Question";
+import { SurveyType } from "@/recoil/QuestionState";
+import CloseIcon from "./icons/CloseIcon";
 
 export default function QuestionItemList({ _id }: { _id: number }) {
-  const { surveyType, items } = useRecoilValue(questionState(_id));
+  const { surveyType, items } = useQuestion({ _id, itemIdx: null });
+
   return (
     <>
-      {items.map(({ parentId }, itemId) => (
-        <View key={itemId} style={styles.dirRowBox}>
-          <QuestionCheckIcon surveyType={surveyType} />
-          <FocusableTextInput _id={parentId} itemIdx={itemId} />
-        </View>
-      ))}
+      {surveyType === "long" || surveyType === "short" ? (
+        <TextInputSkeleton surveyType={surveyType} />
+      ) : (
+        <>
+          {items.map(({ parentId }, itemId) => (
+            <View key={itemId} style={styles.dirRowBox}>
+              <QuestionCheckIcon surveyType={surveyType as SurveyType} />
+              <FocusableTextInput _id={parentId} itemIdx={itemId} />
+              {items.length > 1 && (
+                <TouchableOpacity style={styles.closeButton}>
+                  <CloseIcon />
+                </TouchableOpacity>
+              )}
+            </View>
+          ))}
+          <AddedOptionsWrapper _id={_id} />
+        </>
+      )}
     </>
   );
 }

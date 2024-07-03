@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import {
   EmptyQuestion,
-  ExcludeDescSurveyType,
   QuestionProps,
   indexState,
   questionsState,
@@ -42,14 +41,5 @@ export default function QuestionList() {
     [setQuestionList]
   );
 
-  const updateSurveyType = useCallback(
-    (_id: number, surveyType: ExcludeDescSurveyType) => {
-      setQuestionList(prev =>
-        prev.map(q => (q._id === _id ? { ...q, surveyType } : q))
-      );
-    },
-    [setQuestionList]
-  );
-
-  return { questionList, addQuestion, removeQuestion, updateSurveyType };
+  return { questionList, addQuestion, removeQuestion };
 }
