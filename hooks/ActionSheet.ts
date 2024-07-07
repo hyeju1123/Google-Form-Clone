@@ -7,6 +7,7 @@ import RadioButtonIcon from "@/components/icons/RadioButtonIcon";
 import { useRecoilState } from "recoil";
 import { actionSheetState } from "@/recoil/ActionState";
 import { ExcludeDescSurveyType } from "@/recoil/QuestionState";
+import { theme } from "@/styles/color";
 
 export type surveyTypeProps = {
   [key in ExcludeDescSurveyType]: {
@@ -26,11 +27,11 @@ export const surveyTypeData: surveyTypeProps = {
   },
   radio: {
     value: "객관식 질문",
-    icon: RadioButtonIcon,
+    icon: () => RadioButtonIcon({ size: 25, color: theme.icon }),
   },
   checkbox: {
     value: "체크박스",
-    icon: CheckboxIcon,
+    icon: () => CheckboxIcon({ size: 25, color: theme.icon }),
   },
 };
 

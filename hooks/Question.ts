@@ -32,7 +32,7 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
       ? { ...questionVal, style }
       : {
           ...questionVal,
-          title: item?.itemTitle,
+          title: item?.itemTitle || "",
           focused: item?.focused,
           placeholder: item?.placeholder,
           items: [],

@@ -8,15 +8,22 @@ import GalleryIcon from "./icons/GalleryIcon";
 import VideoIcon from "./icons/VideoIcon";
 import SectionIcon from "./icons/SectionIcon";
 
-export default function BottomActionTab() {
+type BottomActionTabProps = {
+  moveToPreview: () => void;
+};
+
+export default function BottomActionTab({
+  moveToPreview,
+}: BottomActionTabProps) {
   const { addQuestion } = useQuestionList();
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => addQuestion()}>
         <AddIcon />
       </TouchableOpacity>
-
-      <BringInIcon />
+      <TouchableOpacity onPress={moveToPreview}>
+        <BringInIcon />
+      </TouchableOpacity>
       <TextIcon />
       <GalleryIcon />
       <VideoIcon />

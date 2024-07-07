@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     width: "95%",
-    height: 50,
+    height: 70,
     alignSelf: "center",
     backgroundColor: theme.card,
     borderWidth: 1,

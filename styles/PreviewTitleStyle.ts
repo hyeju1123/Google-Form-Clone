@@ -3,13 +3,14 @@ import { theme } from "./color";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: theme.background,
+    display: "flex",
+    flexDirection: "row",
   },
-  scrollview: {
-    minHeight: "100%",
+  mainTitle: {
+    fontSize: 25,
   },
-  scrollviewContainer: {
-    paddingBottom: 100,
+  asterik: {
+    color: theme.required,
+    marginLeft: 3,
   },
 });

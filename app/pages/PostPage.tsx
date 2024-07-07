@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import {
   Platform,
   ScrollView,
@@ -10,16 +11,24 @@ import QuestionCard from "@/components/QuestionCard";
 import BottomActionTab from "@/components/BottomActionTab";
 import ItemActionPopup from "@/components/ItemActionPopup";
 import { styles } from "@/styles/PostPageStyle";
+import { RootStackParamList } from "../App";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import usePopup from "@/hooks/Popup";
 import useQuestionList from "@/hooks/QuestionList";
 
-export default function PostPage() {
+type PostPageProps = NativeStackScreenProps<RootStackParamList, "Post">;
+
+export default function PostPage({ navigation: { navigate } }: PostPageProps) {
   const { questionList } = useQuestionList();
   const {
     showPopup: { state },
     handlePopup,
   } = usePopup();
+
+  const moveToPreview = useCallback(() => {
+    navigate("Preview");
+  }, [navigate]);
 
   return (
     <TouchableWithoutFeedback onPress={() => handlePopup(false, null)}>
@@ -39,7 +48,7 @@ export default function PostPage() {
         </KeyboardAvoidingView>
         <ActionSheet />
         <ItemActionPopup showPopup={state} />
-        <BottomActionTab />
+        <BottomActionTab moveToPreview={moveToPreview} />
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
