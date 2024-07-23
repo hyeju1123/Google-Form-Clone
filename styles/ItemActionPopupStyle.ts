@@ -1,13 +1,13 @@
-import { Dimensions, StyleSheet } from "react-native";
-import { theme } from "./color";
+import {Dimensions, StyleSheet} from 'react-native';
+import {theme} from './color';
 
-const width = Dimensions.get("screen").width;
+const width = Dimensions.get('screen').width;
 
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.card,
     borderRadius: 5,
-    position: "absolute",
+    position: 'absolute',
     zIndex: 10,
     right: 0,
     bottom: 0,
@@ -22,11 +22,12 @@ export const styles = StyleSheet.create({
     elevation: 5,
   },
   item: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   font: {
+    flex: 1,
     marginLeft: 20,
   },
 });

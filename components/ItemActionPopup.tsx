@@ -1,24 +1,24 @@
-import { View } from "react-native";
-import CopyIcon from "./icons/CopyIcon";
-import ActionButton from "./ActionButton";
-import DeleteIcon from "./icons/DeleteIcon";
-import { styles } from "@/styles/ItemActionPopupStyle";
+import {TouchableOpacity, View} from 'react-native';
+import CopyIcon from './icons/CopyIcon';
+import ActionButton from './ActionButton';
+import DeleteIcon from './icons/DeleteIcon';
+import {styles} from '@/styles/ItemActionPopupStyle';
 
-import usePopup from "@/hooks/Popup";
-import useQuestionList from "@/hooks/QuestionList";
-import { useRecoilValue } from "recoil";
-import { questionState } from "@/recoil/QuestionState";
+import usePopup from '@/hooks/Popup';
+import useQuestionList from '@/hooks/QuestionList';
+import {useRecoilValue} from 'recoil';
+import {questionState} from '@/recoil/QuestionState';
 
 type ItemActionPopupProps = {
   showPopup: boolean;
 };
 
-export default function ItemActionPopup({ showPopup }: ItemActionPopupProps) {
+export default function ItemActionPopup({showPopup}: ItemActionPopupProps) {
   const {
-    showPopup: { lastId },
+    showPopup: {lastId},
     handlePopup,
   } = usePopup();
-  const { addQuestion, removeQuestion } = useQuestionList();
+  const {addQuestion, removeQuestion} = useQuestionList();
   const copiedQuestion = useRecoilValue(questionState(lastId || 0));
 
   const handleAddQuestion = () => {
@@ -32,19 +32,13 @@ export default function ItemActionPopup({ showPopup }: ItemActionPopupProps) {
   };
 
   return (
-    <View style={[styles.container, { display: showPopup ? "flex" : "none" }]}>
-      <ActionButton
-        padding={20}
-        text="항목 복제"
-        icon={<CopyIcon />}
-        onPress={handleAddQuestion}
-      />
-      <ActionButton
-        padding={20}
-        text="삭제"
-        icon={<DeleteIcon />}
-        onPress={handleRemoveQuestion}
-      />
+    <View style={[styles.container, {display: showPopup ? 'flex' : 'none'}]}>
+      <TouchableOpacity onPress={handleAddQuestion}>
+        <ActionButton padding={20} text="항목 복제" icon={<CopyIcon />} />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleRemoveQuestion}>
+        <ActionButton padding={20} text="삭제" icon={<DeleteIcon />} />
+      </TouchableOpacity>
     </View>
   );
 }

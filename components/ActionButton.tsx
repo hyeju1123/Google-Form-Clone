@@ -1,23 +1,25 @@
-import { Text, TouchableOpacity } from "react-native";
-import { styles } from "@/styles/ItemActionPopupStyle";
+import {Text, View} from 'react-native';
+import {styles} from '@/styles/ItemActionPopupStyle';
+import MenuDownIcon from './icons/MenuDownIcon';
 
 type ActionButtonProps = {
   text: string;
   icon: JSX.Element;
   padding?: number;
-  onPress: () => void;
+  menuDown?: boolean;
 };
 
 export default function ActionButton({
   text,
   icon,
   padding,
-  onPress,
+  menuDown,
 }: ActionButtonProps) {
   return (
-    <TouchableOpacity style={[{ padding }, styles.item]} onPress={onPress}>
+    <View style={[{padding}, styles.item]}>
       {icon}
       <Text style={styles.font}>{text}</Text>
-    </TouchableOpacity>
+      {menuDown && <MenuDownIcon />}
+    </View>
   );
 }

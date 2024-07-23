@@ -1,38 +1,37 @@
-import { useCallback } from "react";
-import { styles } from "@/styles/QuestionCardStyle";
+import {useCallback} from 'react';
+import {styles} from '@/styles/QuestionCardStyle';
 
-import { useRecoilState } from "recoil";
-import useCardFocus from "@/hooks/CardFocus";
+import {useRecoilState} from 'recoil';
 import {
   TITLE_ID,
   questionState,
   ExcludeDescSurveyType,
-} from "@/recoil/QuestionState";
+} from '@/recoil/QuestionState';
 
 export type QuestionHookProps = {
   _id: number;
   itemIdx: number | null;
 };
 
-const setDefaultStyle = ({ _id, itemIdx }: QuestionHookProps) => {
-  if (_id !== TITLE_ID) return styles.questionFont;
+const setDefaultStyle = ({_id, itemIdx}: QuestionHookProps) => {
+  if (_id !== TITLE_ID)
+    return itemIdx === null ? styles.questionFont : styles.itemFont;
   return itemIdx === null ? styles.titleFont : styles.descFont;
 };
 
-export default function Question({ _id, itemIdx }: QuestionHookProps) {
-  const { handleCardFocus } = useCardFocus();
+export default function Question({_id, itemIdx}: QuestionHookProps) {
   const [questionVal, setQuestionVal] = useRecoilState(questionState(_id));
-  const style = setDefaultStyle({ _id, itemIdx });
+  const style = setDefaultStyle({_id, itemIdx});
 
-  const { items } = questionVal;
+  const {items} = questionVal;
   const item = items.find(i => i.itemId === itemIdx);
 
   const returnValue =
     itemIdx === null
-      ? { ...questionVal, style }
+      ? {...questionVal, style}
       : {
           ...questionVal,
-          title: item?.itemTitle || "",
+          title: item?.itemTitle || '',
           focused: item?.focused,
           placeholder: item?.placeholder,
           items: [],
@@ -42,19 +41,18 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
   /** fn for handling focus */
   const handleFocus = useCallback(
     (_id: number, focused: boolean) => {
-      focused && handleCardFocus(_id);
       setQuestionVal(prev => {
         return itemIdx === null
-          ? { ...prev, focused }
+          ? {...prev, focused}
           : {
               ...prev,
               items: prev.items.map(item =>
-                item.itemId === itemIdx ? { ...item, focused } : item
+                item.itemId === itemIdx ? {...item, focused} : item,
               ),
             };
       });
     },
-    [setQuestionVal, handleCardFocus]
+    [setQuestionVal, itemIdx],
   );
 
   /** fn for handling change */
@@ -62,16 +60,16 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
     (title: string) => {
       setQuestionVal(prev => {
         return itemIdx === null
-          ? { ...prev, title }
+          ? {...prev, title}
           : {
               ...prev,
               items: prev.items.map(item =>
-                item.itemId === itemIdx ? { ...item, itemTitle: title } : item
+                item.itemId === itemIdx ? {...item, itemTitle: title} : item,
               ),
             };
       });
     },
-    [setQuestionVal]
+    [itemIdx, setQuestionVal],
   );
 
   /** fn for handling survey type */
@@ -82,13 +80,13 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
         surveyType,
       }));
     },
-    [setQuestionVal]
+    [setQuestionVal],
   );
 
   /** fn for handling adding option */
   const handleAddOption = useCallback(() => {
     setQuestionVal(prev => {
-      const { lastItemId } = prev;
+      const {lastItemId} = prev;
       const itemsLen = prev.items.length;
       return {
         ...prev,
@@ -99,21 +97,25 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
             ...prev.items[itemsLen - 1],
             itemId: lastItemId + 1,
             itemTitle: `옵션 ${itemsLen + 1}`,
+            focused: true,
           },
         ],
       };
     });
-  }, []);
+  }, [setQuestionVal]);
 
   /** fn for handling deleting option */
-  const handleDeleteOption = useCallback((itemId: number) => {
-    setQuestionVal(prev => {
-      return {
-        ...prev,
-        items: prev.items.filter(i => i.itemId !== itemId),
-      };
-    });
-  }, []);
+  const handleDeleteOption = useCallback(
+    (itemId: number) => {
+      setQuestionVal(prev => {
+        return {
+          ...prev,
+          items: prev.items.filter(i => i.itemId !== itemId),
+        };
+      });
+    },
+    [setQuestionVal],
+  );
 
   /** fn for handling required option */
   const handleRequired = useCallback(() => {
@@ -123,7 +125,7 @@ export default function Question({ _id, itemIdx }: QuestionHookProps) {
         required: !prev.required,
       };
     });
-  }, []);
+  }, [setQuestionVal]);
 
   return {
     handleFocus,

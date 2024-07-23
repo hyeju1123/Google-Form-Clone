@@ -1,16 +1,17 @@
-import { memo, useCallback } from "react";
-import { Text, TextInput, View } from "react-native";
+import {memo, useCallback} from 'react';
+import {Text, TextInput, View} from 'react-native';
 
-import useQuestion from "@/hooks/Question";
-import { TITLE_ID } from "@/recoil/QuestionState";
-import { styles } from "@/styles/QuestionCardStyle";
+import useQuestion from '@/hooks/Question';
+import useCardFocus from '@/hooks/CardFocus';
+import {TITLE_ID} from '@/recoil/QuestionState';
+import {styles} from '@/styles/QuestionCardStyle';
 
 type FocusableTextInputProps = {
   _id: number;
   itemIdx: number | null;
 };
 
-const FocusableTextInput = ({ _id, itemIdx }: FocusableTextInputProps) => {
+const FocusableTextInput = ({_id, itemIdx}: FocusableTextInputProps) => {
   const {
     title,
     focused,
@@ -19,22 +20,27 @@ const FocusableTextInput = ({ _id, itemIdx }: FocusableTextInputProps) => {
     handleFocus,
     style,
     required,
-  } = useQuestion({ _id, itemIdx });
+  } = useQuestion({_id, itemIdx});
+  const {handleCardFocus} = useCardFocus();
 
   const handleStyle = useCallback(() => {
     const underline = focused && styles.focusedUnderline;
     const questionBackground =
       focused && itemIdx === null && _id !== TITLE_ID && styles.questionBg;
     return [style, underline, questionBackground];
-  }, [focused]);
+  }, [focused, _id, itemIdx, style]);
 
   return (
-    <View style={styles.dirRowBox}>
+    <View style={styles.textinputWrapper}>
       <TextInput
         value={title}
+        autoFocus={focused ? true : false}
         placeholder={placeholder}
         onChangeText={handleChange}
-        onFocus={() => handleFocus(_id, true)}
+        onFocus={() => {
+          handleCardFocus(_id);
+          handleFocus(_id, true);
+        }}
         onBlur={() => handleFocus(_id, false)}
         style={handleStyle()}
       />

@@ -1,14 +1,14 @@
-import { memo } from "react";
-import Card from "./Card";
-import SurveyTypeButton from "./SurveyTypeButton";
-import QuestionItemList from "./QuestionItemList";
-import FocusableTextInput from "./FocusableTextInput";
+import {memo} from 'react';
+import Card from './Card';
+import SurveyTypeButton from './SurveyTypeButton';
+import QuestionItemList from './QuestionItemList';
+import FocusableTextInput from './FocusableTextInput';
 
 type QuestionCardProps = {
   _id: number;
 };
 
-const QuestionCard = ({ _id }: QuestionCardProps) => {
+const QuestionCard = ({_id}: QuestionCardProps) => {
   return (
     <Card _id={_id}>
       <FocusableTextInput _id={_id} itemIdx={null} />
